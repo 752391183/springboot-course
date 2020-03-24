@@ -1,13 +1,15 @@
 package com.example.springbootjpa.entity;
 
 import lombok.Data;
-import org.springframework.data.repository.NoRepositoryBean;
+import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@NoRepositoryBean
+@NoArgsConstructor
 @Entity
 public class Directions {
     @Id
@@ -15,8 +17,17 @@ public class Directions {
     private int id;
     private String name;
 
-    private int value;//方向的权重
+    private Float value;//方向的权重
 
+    @Column(columnDefinition = "timestamp default current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime insertTime;
+    @Column(columnDefinition = "timestamp default current_timestamp"+
+            " on update current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime updateTime;
      @OneToMany(mappedBy = "directions")
     private List<DirectionsElective> directionsElectives;//方向和学生之间的联系
 

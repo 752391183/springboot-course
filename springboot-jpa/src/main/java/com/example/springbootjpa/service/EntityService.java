@@ -1,13 +1,11 @@
 package com.example.springbootjpa.service;
 
-import com.example.springbootjpa.entity.Course;
-import com.example.springbootjpa.entity.Students;
-import com.example.springbootjpa.entity.Teacher;
+import com.example.springbootjpa.entity.*;
 import com.example.springbootjpa.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @Transactional
@@ -39,6 +37,49 @@ public class EntityService {
     public void addTeacher(Teacher teacher){
 
         teacherBaseRepository.save(teacher);
+
+    }
+    public void addDirections(Directions directions){
+
+        directionsBaseRepository.save(directions);
+
+    }
+    public void addDirectionsElective(DirectionsElective directionsElective){
+
+        directionsElectiveBaseRepository.save(directionsElective);
+
+    }
+
+    public void addElective(Elective elective){
+
+        electiveBaseRepository.save(elective);
+
+    }
+
+    public Students getStudents(int id){
+         return studentsBaseRepository.findById(id).orElse(null);
+    }
+    public Course getCourse(int id){
+
+        return courseBaseRepository.findById(id).orElse(null);
+    }
+    public Directions getDirections(int id){
+
+        return directionsBaseRepository.findById(id).orElse(null);
+    }
+    public DirectionsElective getDirectionsElective(int id){
+
+        return directionsElectiveBaseRepository.findById(id).orElse(null);
+
+    }
+    public Elective getEletive(int id){
+
+        return electiveBaseRepository.findById(id).orElse(null);
+
+    }
+    public Teacher getTeacher(int id){
+
+        return teacherBaseRepository.findById(id).orElse(null);
 
     }
 }

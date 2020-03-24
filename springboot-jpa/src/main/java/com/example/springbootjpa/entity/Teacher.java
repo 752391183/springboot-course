@@ -1,14 +1,14 @@
 package com.example.springbootjpa.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerators;
-import org.springframework.data.repository.NoRepositoryBean;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@NoRepositoryBean
+@NoArgsConstructor
 @Data
 public class Teacher {
     @Id
@@ -20,7 +20,15 @@ public class Teacher {
     private int selectNumber;//可以选择学生的数量
 
     private int password;//老师登录系统
-
+    @Column(columnDefinition = "timestamp default current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime insertTime;
+    @Column(columnDefinition = "timestamp default current_timestamp"+
+            " on update current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime updateTime;
     @OneToMany(mappedBy = "teacher")
     private List<Students> students;//记录已选择的学生
 }

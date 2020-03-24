@@ -1,11 +1,13 @@
 package com.example.springbootjpa.entity;
 
 import lombok.Data;
-import org.springframework.data.repository.NoRepositoryBean;
+import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@NoRepositoryBean
+@NoArgsConstructor
 @Data
 @Entity
 public class Elective {
@@ -14,8 +16,17 @@ public class Elective {
     private int id;
     private String detail;//具体的信息
 
-    private int grade;//课程的成绩
+    private Float grade;//课程的成绩
 
+    @Column(columnDefinition = "timestamp default current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime insertTime;
+    @Column(columnDefinition = "timestamp default current_timestamp"+" " +
+            "on update current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime updateTime;
     @ManyToOne
     private Course course;
     @ManyToOne

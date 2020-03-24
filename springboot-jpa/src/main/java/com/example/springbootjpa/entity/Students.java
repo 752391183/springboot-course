@@ -1,13 +1,14 @@
 package com.example.springbootjpa.entity;
 
 import lombok.Data;
-import org.springframework.data.repository.NoRepositoryBean;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@NoRepositoryBean
+@NoArgsConstructor
 @Entity
 public class Students {
      @Id
@@ -16,9 +17,18 @@ public class Students {
     private String name;
 
     private Boolean whetherSelected;//是否被老师选中
+
+    @Column(columnDefinition = "timestamp default current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime insertTime;
+    @Column(columnDefinition = "timestamp default current_timestamp"+
+            " on update current_timestamp",
+            insertable = false,
+            updatable = false)
+    private LocalDateTime updateTime;
     @ManyToOne
    private Teacher teacher;
-
     @OneToMany(mappedBy = "students")
     private List<Elective> electives ; //学生与课程之间的联系
 
